@@ -31,7 +31,7 @@
 		058D872672C8CF048C629A8D /* Pods-Fixer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixer_Tests/Pods-Fixer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		1F29D73D8F1BB8CF75822A57 /* Pods-Fixer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixer_Example/Pods-Fixer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2C966F25BC58DB626850AE67 /* Pods_Fixer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fixer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		480231E53C72519400E64F71 /* Fixer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Fixer.podspec; path = ../Fixer.podspec; sourceTree = "<group>"; };
+		480231E53C72519400E64F71 /* Fixer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Fixer.podspec; path = ../Fixer.podspec; sourceTree = "<group>"; };
 		5517234028FBBA9E17DE65C1 /* Pods-Fixer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixer_Example/Pods-Fixer_Example.release.xcconfig"; sourceTree = "<group>"; };
 		600B265A0A5F38DAE9722A39 /* Pods_Fixer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fixer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Fixer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fixer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,8 +45,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		61388C1478A736E212372EDC /* Pods-Fixer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixer_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixer_Tests/Pods-Fixer_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		A32A30B603D7D31781EBC31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		A4BB342B07A38CEDAB02FDEE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A32A30B603D7D31781EBC31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		A4BB342B07A38CEDAB02FDEE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,12 +271,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Fixer_Example/Pods-Fixer_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Fixer/Fixer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fixer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +518,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
