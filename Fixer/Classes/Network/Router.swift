@@ -10,6 +10,7 @@ import Alamofire
 
 enum Router: URLRequestConvertible {
   case symbols
+  case latest(base: String, symbols: [String])
   
   #if RELEASE
   static let baseURLString = "https://data.fixer.io/api"
@@ -18,16 +19,15 @@ enum Router: URLRequestConvertible {
   #endif
   
   var method: HTTPMethod {
-    switch self {
-    case .symbols:
-      return .get
-    }
+    return .get
   }
   
   var path: String {
     switch self {
     case .symbols:
       return "/symbols"
+    case .latest:
+      return "/latest"
     }
   }
   
@@ -40,6 +40,12 @@ enum Router: URLRequestConvertible {
     
     
     switch self {
+    case let .latest(base, symbols):
+      let parameters: Parameters = [
+        "base": base,
+        "symbols": symbols.joined(separator: ",")
+      ]
+      urlRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)
     default:
       urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
     }

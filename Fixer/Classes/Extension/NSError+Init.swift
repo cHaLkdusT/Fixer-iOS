@@ -8,7 +8,7 @@
 import Foundation
 
 extension NSError {
-  convenience init(code: Int, type: String, info: String) {
+  convenience init(code: Int, type: String, info: String?) {
     let userInfo: [String: Any] = [
       "code": code,
       "type": type,
