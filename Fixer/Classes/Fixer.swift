@@ -72,6 +72,18 @@ public final class Fixer {
     }
   }
   
+  public func convert(_ amount: Double,
+                      from: String,
+                      to: String,
+                      on date: Date? = nil,
+                      completionHandler: @escaping FixerCompletionHandler) {
+    sessionManager.request(Router.convert(amount: amount, from: from, to: to, date: date))
+      .validate()
+      .responseJSON { response in
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
+    }
+  }
+  
   private static func processResponse(response: DataResponse<Any>,
                                       completionHandler: FixerCompletionHandler) {
     switch response.result {

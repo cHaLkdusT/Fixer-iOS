@@ -5,15 +5,15 @@
 //  Created by Julius Lundang on 17/01/2019.
 //
 
-
 import Alamofire
 
 enum Router: URLRequestConvertible {
   case symbols
   case latest(base: String, symbols: [String])
   case history(date: Date, base: String, symbols: [String])
+  case convert(amount: Double, from: String, to: String, date: Date?)
   
-  #if RELEASE
+  #if DEBUG
   static let baseURLString = "https://data.fixer.io/api"
   #else
   static let baseURLString = "http://data.fixer.io/api"
@@ -32,7 +32,9 @@ enum Router: URLRequestConvertible {
     case let .history(date, _, _):
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd"
-      return dateFormatter.string(from: date)
+      return "/\(dateFormatter.string(from: date))"
+    case .convert:
+      return "/convert"
     }
   }
   
@@ -51,6 +53,18 @@ enum Router: URLRequestConvertible {
         "base": base,
         "symbols": symbols.joined(separator: ",")
       ]
+      urlRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)
+    case let .convert(amount, from, to, date):
+      var parameters: Parameters = [
+        "amount": amount,
+        "from": from,
+        "to": to
+      ]
+      if let date = date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        parameters["date"] = dateFormatter.string(from: date)
+      }
       urlRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)
     default:
       urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
