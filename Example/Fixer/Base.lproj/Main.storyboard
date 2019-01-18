@@ -56,6 +56,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NXD-gn-o9E" kind="show" id="sy5-cc-FOe"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="gQU-Lc-C83" style="IBUITableViewCellStyleDefault" id="Zyr-I6-A4t">
                                         <rect key="frame" x="0.0" y="88" width="375" height="44"/>
@@ -181,7 +184,42 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtC-ZA-Wbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="729" y="-972"/>
+            <point key="canvasLocation" x="746" y="-1533"/>
+        </scene>
+        <!--Latest Rates-->
+        <scene sceneID="rZF-Rp-pg6">
+            <objects>
+                <viewController title="Latest Rates" id="NXD-gn-o9E" customClass="LatestRatesViewController" customModule="Fixer_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P2j-OV-hxF"/>
+                        <viewControllerLayoutGuide type="bottom" id="GtF-OO-Eij"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qua-Hv-z6s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9lR-gn-E2D">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GtF-OO-Eij" firstAttribute="top" secondItem="9lR-gn-E2D" secondAttribute="bottom" id="4TQ-T7-lA2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9lR-gn-E2D" secondAttribute="trailing" id="Gas-Qc-WUU"/>
+                            <constraint firstItem="9lR-gn-E2D" firstAttribute="top" secondItem="P2j-OV-hxF" secondAttribute="bottom" id="TXW-4R-Dpa"/>
+                            <constraint firstItem="9lR-gn-E2D" firstAttribute="leading" secondItem="qua-Hv-z6s" secondAttribute="leadingMargin" id="qFc-xo-IlM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="txtResponse" destination="9lR-gn-E2D" id="Pnf-NW-878"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1IF-wR-H5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="930" y="-405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1p7-bd-RPe">

@@ -12,7 +12,7 @@ import Fixer
 
 class MainTableViewController: UITableViewController {
   
-  let fx = Fixer(accessKey: "a125579ad8899688847c8a02345ff74f")
+  let fx = Fixer(accessKey: "")
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,6 +27,8 @@ class MainTableViewController: UITableViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let supportedSymbolsVC = segue.destination as? SupportedSymbolsViewController {
       supportedSymbolsVC.fx = fx
+    } else if let latestRatesVC = segue.destination as? LatestRatesViewController {
+      latestRatesVC.fx = fx
     }
   }
 }
