@@ -107,11 +107,11 @@ public final class Fixer {
   ///   - startDate: The start date of your preferred timeframe
   ///   - endDate: The end date of your preferred timeframe
   ///   - completionHandler: Completion handler
-  public func dailyHistoricalRates(base: String = "EUR",
-                                   symbols: [String] = [],
-                                   between startDate: Date,
-                                   and endDate: Date,
-                                   completionHandler: @escaping FixerCompletionHandler) {
+  public func timeSeries(base: String = "EUR",
+                         symbols: [String] = [],
+                         between startDate: Date,
+                         and endDate: Date,
+                         completionHandler: @escaping FixerCompletionHandler) {
     let urlRequest = Router.timeSeries(base: base, symbols: symbols, startDate: startDate, endDate: endDate)
     sessionManager.request(urlRequest)
       .validate()
@@ -120,6 +120,36 @@ public final class Fixer {
     }
   }
   
+  /// [Fluctuation Endpoint](https://fixer.io/documentation#fluctuation).
+  /// Using the Fixer API's fluctuation endpoint you will be able to retrieve information
+  /// about how currencies fluctuate on a day-to-day basis. To use this feature,
+  /// simply append a start_date and end_date and choose which currencies (symbols)
+  /// you would like to query the API for. Please note that the maximum allowed timeframe is 365 days.
+  ///
+  /// - Parameters:
+  ///   - base: Currency code of your preferred base currency
+  ///   - symbols: Currency codes to limit output currencies
+  ///   - startDate: The start date of your preferred fluctuation timeframe
+  ///   - endDate: The end date of your preferred fluctuation timeframe
+  ///   - completionHandler: Completion handler
+  public func fluctuation(base: String = "EUR",
+                          symbols: [String] = [],
+                          between startDate: Date,
+                          and endDate: Date,
+                          completionHandler: @escaping FixerCompletionHandler) {
+    let urlRequest = Router.fluctuation(base: base, symbols: symbols, startDate: startDate, endDate: endDate)
+    sessionManager.request(urlRequest)
+      .validate()
+      .responseJSON { response in
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
+    }
+  }
+  
+  /// Helper function to process response from Fixer.io web service
+  ///
+  /// - Parameters:
+  ///   - response: Fixer.io response
+  ///   - completionHandler: Completion handler
   private static func processResponse(response: DataResponse<Any>,
                                       completionHandler: FixerCompletionHandler) {
     switch response.result {
@@ -138,7 +168,7 @@ public final class Fixer {
     }
   }
   
-  /// Static helper function that parses the Fixer.io JSON response. It returns an NSError object
+  /// Helper function that parses the Fixer.io JSON response. It returns an NSError object
   /// if the response has `error` key-value
   ///
   /// - Parameter response: Fixer.io JSON response

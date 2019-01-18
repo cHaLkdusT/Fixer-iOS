@@ -13,6 +13,7 @@ enum Router: URLRequestConvertible {
   case history(date: Date, base: String, symbols: [String])
   case convert(amount: Double, from: String, to: String, date: Date?)
   case timeSeries(base: String, symbols: [String], startDate: Date, endDate: Date)
+  case fluctuation(base: String, symbols: [String], startDate: Date, endDate: Date)
   
   #if DEBUG
   static let baseURLString = "https://data.fixer.io/api"
@@ -35,7 +36,9 @@ enum Router: URLRequestConvertible {
     case .convert:
       return "/convert"
     case .timeSeries:
-      return "timeseries"
+      return "/timeseries"
+    case .fluctuation:
+      return "/fluctuation"
     }
   }
   
@@ -63,7 +66,8 @@ enum Router: URLRequestConvertible {
       if let date = date {
         parameters?["date"] = format(date: date)
       }
-    case let .timeSeries(base, symbols, startDate, endDate):
+    case let .timeSeries(base, symbols, startDate, endDate),
+         let .fluctuation(base, symbols, startDate, endDate):
       parameters = [
         "base": base,
         "symbols": symbols.joined(separator: ","),
