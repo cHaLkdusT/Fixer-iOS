@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'Fixer_Example' do
   pod 'Fixer', :path => '../'
+  pod 'MBProgressHUD'
 
   target 'Fixer_Tests' do
     inherit! :search_paths
