@@ -29,20 +29,7 @@ public final class Fixer {
     sessionManager.request(Router.symbols)
       .validate()
       .responseJSON { response in
-        switch response.result {
-        case .success(let json):
-          if let json = json as? [String: Any] {
-            let error = Fixer.parseError(json)
-            guard error == nil else {
-              completionHandler(nil, error)
-              return
-            }
-            
-            completionHandler(json, nil)
-          }
-        case .failure(let error):
-          completionHandler(nil, error)
-        }
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
     }
   }
   
@@ -60,20 +47,46 @@ public final class Fixer {
     sessionManager.request(Router.latest(base: currency, symbols: symbols))
       .validate()
       .responseJSON { response in
-        switch response.result {
-        case .success(let json):
-          if let json = json as? [String: Any] {
-            let error = Fixer.parseError(json)
-            guard error == nil else {
-              completionHandler(nil, error)
-              return
-            }
-            
-            completionHandler(json, nil)
-          }
-        case .failure(let error):
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
+    }
+  }
+  
+  /// [Historical Rates Endpoint]().
+  /// Historical rates are available for most currencies all the way back to the year of 1999.
+  /// You can query the Fixer API for historical rates by appending a date (format YYYY-MM-DD)
+  /// to the base URL.
+  ///
+  /// - Parameters:
+  ///   - date: A date in the past for which historical rates are requested.
+  ///   - currency: Currency code of your preferred base currency. Defaults to "EUR"
+  ///   - symbols: Currency codes to limit output currencies
+  ///   - completionHandler: Completion handler
+  public func getHistoricalRates(on date: Date,
+                                 base currency: String = "EUR",
+                                 symbols: [String] = [],
+                                 completionHandler: @escaping FixerCompletionHandler) {
+    sessionManager.request(Router.history(date: date, base: currency, symbols: symbols))
+      .validate()
+      .responseJSON { response in
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
+    }
+  }
+  
+  private static func processResponse(response: DataResponse<Any>,
+                                      completionHandler: FixerCompletionHandler) {
+    switch response.result {
+    case .success(let json):
+      if let json = json as? [String: Any] {
+        let error = Fixer.parseError(json)
+        guard error == nil else {
           completionHandler(nil, error)
+          return
         }
+        
+        completionHandler(json, nil)
+      }
+    case .failure(let error):
+      completionHandler(nil, error)
     }
   }
   
@@ -82,7 +95,7 @@ public final class Fixer {
   ///
   /// - Parameter response: Fixer.io JSON response
   /// - Returns: An error if response has `error` key-value
-  static func parseError(_ response: [String: Any]) -> NSError? {
+  private static func parseError(_ response: [String: Any]) -> NSError? {
     guard let error = response["error"] as? [String: Any],
       let code = error["code"] as? Int,
       let type = error["type"] as? String else {

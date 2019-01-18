@@ -11,6 +11,7 @@ import Alamofire
 enum Router: URLRequestConvertible {
   case symbols
   case latest(base: String, symbols: [String])
+  case history(date: Date, base: String, symbols: [String])
   
   #if RELEASE
   static let baseURLString = "https://data.fixer.io/api"
@@ -28,6 +29,10 @@ enum Router: URLRequestConvertible {
       return "/symbols"
     case .latest:
       return "/latest"
+    case let .history(date, _, _):
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd"
+      return dateFormatter.string(from: date)
     }
   }
   
@@ -40,7 +45,8 @@ enum Router: URLRequestConvertible {
     
     
     switch self {
-    case let .latest(base, symbols):
+    case let .latest(base, symbols),
+         let .history(_, base, symbols):
       let parameters: Parameters = [
         "base": base,
         "symbols": symbols.joined(separator: ",")
