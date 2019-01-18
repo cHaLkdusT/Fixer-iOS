@@ -16,9 +16,9 @@ enum Router: URLRequestConvertible {
   case fluctuation(base: String, symbols: [String], startDate: Date, endDate: Date)
   
   #if DEBUG
-  static let baseURLString = "https://data.fixer.io/api"
-  #else
   static let baseURLString = "http://data.fixer.io/api"
+  #else
+  static let baseURLString = "https://data.fixer.io/api"
   #endif
   
   var method: HTTPMethod {
