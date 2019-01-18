@@ -29,6 +29,8 @@ class MainTableViewController: UITableViewController {
       supportedSymbolsVC.fx = fx
     } else if let latestRatesVC = segue.destination as? LatestRatesViewController {
       latestRatesVC.fx = fx
+    } else if let historicalRatesVC = segue.destination as? HistoricalRatesViewController {
+      historicalRatesVC.fx = fx
     }
   }
 }

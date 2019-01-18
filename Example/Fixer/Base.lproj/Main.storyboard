@@ -76,6 +76,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="0eZ-Gb-kai" kind="show" id="rCT-bS-CO7"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="dZr-ir-Saf" style="IBUITableViewCellStyleDefault" id="mVK-Rq-eHX">
                                         <rect key="frame" x="0.0" y="132" width="375" height="44"/>
@@ -184,7 +187,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtC-ZA-Wbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="746" y="-1533"/>
+            <point key="canvasLocation" x="745" y="-699"/>
         </scene>
         <!--Latest Rates-->
         <scene sceneID="rZF-Rp-pg6">
@@ -219,7 +222,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IF-wR-H5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="930" y="-405"/>
+            <point key="canvasLocation" x="745" y="-1"/>
+        </scene>
+        <!--Historical Rates-->
+        <scene sceneID="ypy-z0-5GW">
+            <objects>
+                <viewController title="Historical Rates" id="0eZ-Gb-kai" customClass="HistoricalRatesViewController" customModule="Fixer_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sva-Pb-4nK"/>
+                        <viewControllerLayoutGuide type="bottom" id="JDE-AO-ogR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xj9-hM-bfF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xDe-Bx-9QE">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xDe-Bx-9QE" firstAttribute="leading" secondItem="xj9-hM-bfF" secondAttribute="leadingMargin" id="1jG-kO-XvJ"/>
+                            <constraint firstItem="xDe-Bx-9QE" firstAttribute="top" secondItem="Sva-Pb-4nK" secondAttribute="bottom" id="ezg-oh-408"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xDe-Bx-9QE" secondAttribute="trailing" id="fBx-Nw-x2G"/>
+                            <constraint firstItem="JDE-AO-ogR" firstAttribute="top" secondItem="xDe-Bx-9QE" secondAttribute="bottom" id="fgW-G1-E6M"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="txtResponse" destination="xDe-Bx-9QE" id="bcs-bY-kit"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aX5-w0-yaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="745" y="740"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1p7-bd-RPe">

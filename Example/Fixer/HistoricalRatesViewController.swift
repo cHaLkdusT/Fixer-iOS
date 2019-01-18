@@ -1,5 +1,5 @@
 //
-//  LatestRatesViewController.swift
+//  HistoricalRatesViewController.swift
 //  Fixer_Example
 //
 //  Created by Julius Lundang on 18/01/2019.
@@ -11,7 +11,7 @@ import UIKit
 import Fixer
 import MBProgressHUD
 
-class LatestRatesViewController: UIViewController {
+class HistoricalRatesViewController: UIViewController {
   
   @IBOutlet weak var txtResponse: UITextView!
   
@@ -20,15 +20,12 @@ class LatestRatesViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
+    // Do any additional setup after loading the view.
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    let now = Date()
+    let sevenDaysAgo = now.addingTimeInterval(-7*24*60*60)
     
-    MBProgressHUD.showAdded(to: self.view, animated: true)
-    
-    fx.latestRates { response, error in
+    fx.historicalRates(on: sevenDaysAgo) { response, error in
       if let response = response,
         let jsonData = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted),
         let jsonText = String(data: jsonData, encoding: .utf8){
@@ -39,4 +36,16 @@ class LatestRatesViewController: UIViewController {
       }
     }
   }
+  
+  
+  /*
+   // MARK: - Navigation
+   
+   // In a storyboard-based application, you will often want to do a little preparation before navigation
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   // Get the new view controller using segue.destination.
+   // Pass the selected object to the new view controller.
+   }
+   */
+  
 }

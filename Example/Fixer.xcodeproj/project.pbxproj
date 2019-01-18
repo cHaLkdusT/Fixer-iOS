@@ -16,6 +16,7 @@
 		6AF506D021F20CB4000BBE1B /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF506CF21F20CB4000BBE1B /* MainTableViewController.swift */; };
 		6AF506D221F20DF5000BBE1B /* SupportedSymbolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF506D121F20DF5000BBE1B /* SupportedSymbolsViewController.swift */; };
 		6AF506D421F2180F000BBE1B /* LatestRatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF506D321F2180F000BBE1B /* LatestRatesViewController.swift */; };
+		6AF506D621F21D73000BBE1B /* HistoricalRatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF506D521F21D73000BBE1B /* HistoricalRatesViewController.swift */; };
 		8866C096744E0DAAFC504FFD /* Pods_Fixer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C966F25BC58DB626850AE67 /* Pods_Fixer_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		6AF506CF21F20CB4000BBE1B /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		6AF506D121F20DF5000BBE1B /* SupportedSymbolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedSymbolsViewController.swift; sourceTree = "<group>"; };
 		6AF506D321F2180F000BBE1B /* LatestRatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRatesViewController.swift; sourceTree = "<group>"; };
+		6AF506D521F21D73000BBE1B /* HistoricalRatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalRatesViewController.swift; sourceTree = "<group>"; };
 		A32A30B603D7D31781EBC31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		A4BB342B07A38CEDAB02FDEE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				6AF506CF21F20CB4000BBE1B /* MainTableViewController.swift */,
 				6AF506D121F20DF5000BBE1B /* SupportedSymbolsViewController.swift */,
 				6AF506D321F2180F000BBE1B /* LatestRatesViewController.swift */,
+				6AF506D521F21D73000BBE1B /* HistoricalRatesViewController.swift */,
 			);
 			name = "Example for Fixer";
 			path = Fixer;
@@ -375,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AF506D021F20CB4000BBE1B /* MainTableViewController.swift in Sources */,
+				6AF506D621F21D73000BBE1B /* HistoricalRatesViewController.swift in Sources */,
 				6AF506D421F2180F000BBE1B /* LatestRatesViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				6AF506D221F20DF5000BBE1B /* SupportedSymbolsViewController.swift in Sources */,
