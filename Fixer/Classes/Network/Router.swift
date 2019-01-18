@@ -12,6 +12,7 @@ enum Router: URLRequestConvertible {
   case latest(base: String, symbols: [String])
   case history(date: Date, base: String, symbols: [String])
   case convert(amount: Double, from: String, to: String, date: Date?)
+  case timeSeries(base: String, symbols: [String], startDate: Date, endDate: Date)
   
   #if DEBUG
   static let baseURLString = "https://data.fixer.io/api"
@@ -30,11 +31,11 @@ enum Router: URLRequestConvertible {
     case .latest:
       return "/latest"
     case let .history(date, _, _):
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd"
-      return "/\(dateFormatter.string(from: date))"
+      return "/\(format(date: date))"
     case .convert:
       return "/convert"
+    case .timeSeries:
+      return "timeseries"
     }
   }
   
@@ -45,31 +46,43 @@ enum Router: URLRequestConvertible {
     var urlRequest = URLRequest(url: url.appendingPathComponent(path))
     urlRequest.httpMethod = method.rawValue
     
-    
+    var parameters: Parameters? = nil
     switch self {
     case let .latest(base, symbols),
          let .history(_, base, symbols):
-      let parameters: Parameters = [
+      parameters = [
         "base": base,
         "symbols": symbols.joined(separator: ",")
       ]
-      urlRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)
     case let .convert(amount, from, to, date):
-      var parameters: Parameters = [
+      parameters = [
         "amount": amount,
         "from": from,
         "to": to
       ]
       if let date = date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        parameters["date"] = dateFormatter.string(from: date)
+        parameters?["date"] = format(date: date)
       }
-      urlRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)
+    case let .timeSeries(base, symbols, startDate, endDate):
+      parameters = [
+        "base": base,
+        "symbols": symbols.joined(separator: ","),
+        "start_date": format(date: startDate),
+        "end_date": format(date: endDate)
+      ]
     default:
-      urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
+      break
     }
     
+    urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+    
     return urlRequest
+  }
+  
+  func format(date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    return dateFormatter.string(from: date)
   }
 }

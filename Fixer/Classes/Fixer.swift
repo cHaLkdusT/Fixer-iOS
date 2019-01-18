@@ -25,7 +25,7 @@ public final class Fixer {
   /// To access this list, make a request to the API's symbols endpoint.
   ///
   /// - Parameter completionHandler: Completion handler
-  public func getSupportedSymbols(completionHandler: @escaping FixerCompletionHandler) {
+  public func supportedSymbols(completionHandler: @escaping FixerCompletionHandler) {
     sessionManager.request(Router.symbols)
       .validate()
       .responseJSON { response in
@@ -41,9 +41,9 @@ public final class Fixer {
   ///   - currency: Base currency. Defaults to "EUR"
   ///   - symbols: Currency codes to limit output currencies
   ///   - completionHandler: Completion handler
-  public func getLatestRates(base currency: String = "EUR",
-                             symbols: [String] = [],
-                             completionHandler: @escaping FixerCompletionHandler) {
+  public func latestRates(base currency: String = "EUR",
+                          symbols: [String] = [],
+                          completionHandler: @escaping FixerCompletionHandler) {
     sessionManager.request(Router.latest(base: currency, symbols: symbols))
       .validate()
       .responseJSON { response in
@@ -61,10 +61,10 @@ public final class Fixer {
   ///   - currency: Currency code of your preferred base currency. Defaults to "EUR"
   ///   - symbols: Currency codes to limit output currencies
   ///   - completionHandler: Completion handler
-  public func getHistoricalRates(on date: Date,
-                                 base currency: String = "EUR",
-                                 symbols: [String] = [],
-                                 completionHandler: @escaping FixerCompletionHandler) {
+  public func historicalRates(on date: Date,
+                              base currency: String = "EUR",
+                              symbols: [String] = [],
+                              completionHandler: @escaping FixerCompletionHandler) {
     sessionManager.request(Router.history(date: date, base: currency, symbols: symbols))
       .validate()
       .responseJSON { response in
@@ -72,12 +72,48 @@ public final class Fixer {
     }
   }
   
+  /// [Convert Endpoint](https://fixer.io/documentation#convertcurrency).
+  /// The Fixer API comes with a separate currency conversion endpoint, which can be used to
+  /// convert any amount from one currency to another. In order to convert currencies,
+  /// please use the API's convert endpoint, append the from and to parameters and
+  /// set them to your preferred base and target currency codes.
+  ///
+  /// - Parameters:
+  ///   - amount: The amount to be converted
+  ///   - from: Currency you would like to convert from
+  ///   - to: Currency you would like to convert to
+  ///   - date: Specify a date to use historical rates for this conversion.
+  ///   - completionHandler: Completion handler
   public func convert(_ amount: Double,
                       from: String,
                       to: String,
                       on date: Date? = nil,
                       completionHandler: @escaping FixerCompletionHandler) {
     sessionManager.request(Router.convert(amount: amount, from: from, to: to, date: date))
+      .validate()
+      .responseJSON { response in
+        Fixer.processResponse(response: response, completionHandler: completionHandler)
+    }
+  }
+  
+  /// [Time-Series Endpoint](https://fixer.io/documentation#timeseries).
+  /// If supported by your subscription plan, the Fixer API's timeseries endpoint lets you query
+  /// the API for daily historical rates between two dates of your choice,
+  /// with a maximum time frame of 365 days.
+  ///
+  /// - Parameters:
+  ///   - base: Currency code of your preferred base currency
+  ///   - symbols: Currency codes to limit output currencies
+  ///   - startDate: The start date of your preferred timeframe
+  ///   - endDate: The end date of your preferred timeframe
+  ///   - completionHandler: Completion handler
+  public func dailyHistoricalRates(base: String = "EUR",
+                                   symbols: [String] = [],
+                                   between startDate: Date,
+                                   and endDate: Date,
+                                   completionHandler: @escaping FixerCompletionHandler) {
+    let urlRequest = Router.timeSeries(base: base, symbols: symbols, startDate: startDate, endDate: endDate)
+    sessionManager.request(urlRequest)
       .validate()
       .responseJSON { response in
         Fixer.processResponse(response: response, completionHandler: completionHandler)
